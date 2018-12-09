@@ -1,0 +1,1 @@
+# PlanetSurvivalGame scripts folder
