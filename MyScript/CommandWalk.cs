@@ -33,6 +33,9 @@ public class CommandWalk : MonoBehaviour {
     public bool haveWater;
     public GameObject haveWaterIcon;
     public bool havePickaxe;
+    public bool usePickaxe;
+    public bool useAxe;
+    public bool useHand;
     void Start()
     {
         isWalking = false;
@@ -41,7 +44,11 @@ public class CommandWalk : MonoBehaviour {
         MineText.text = "Mine:" + MineCount.ToString();
         MetalText.text = "Metal:" + MetalCount.ToString();
         haveWater = true;
+        useHand = true;
+        useAxe = false;
         havePickaxe = false;
+        usePickaxe = false;
+
     }
 
     // Update is called once per frame
@@ -124,7 +131,7 @@ public class CommandWalk : MonoBehaviour {
             //col.gameObject.GetComponent<Renderer>().material.color = Color.red;
             if (GvrControllerInput.ClickButtonDown )
             {
-                if (tarObj.tag.Equals("Trees") && Mathf.Floor(dist) <= 20f)
+                if (tarObj.tag.Equals("Trees") && Mathf.Floor(dist) <= 20f && useAxe == true)
                 {
                     LogCount += 30;
                     LogText.text = "Log:" + LogCount;
@@ -162,10 +169,8 @@ public class CommandWalk : MonoBehaviour {
                     }
                     tarObj.gameObject.SetActive(false);
                 }
-                if (tarObj.gameObject.tag == "Mines" && Mathf.Floor(dist) <= 20f)
-                {
-                    if (havePickaxe == true)
-                    {
+                if (tarObj.gameObject.tag == "Mines" && Mathf.Floor(dist) <= 20f && usePickaxe == true)
+                {                                      
                         tarObj.gameObject.SetActive(false);
                         //Destroy(col.gameObject);
                         MineCount += 30;
@@ -181,9 +186,9 @@ public class CommandWalk : MonoBehaviour {
                         if (willThirst <= (energy.GetComponent<Health>().thirstValue + 5))
                             energy.GetComponent<Health>().isThirst = true;
                         tarObj.gameObject.SetActive(false);
-                    }
+                    
                 }
-                if (tarObj.gameObject.tag.Equals("Food") && Mathf.Floor(dist) <= 20f)
+                if (tarObj.gameObject.tag.Equals("Food") && Mathf.Floor(dist) <= 20f && useHand == true)
                 {
                     energy.GetComponent<Health>().CurrentHealth += 5;
                     GetComponent<CommandWalk>().isWalking = false;
@@ -212,7 +217,7 @@ public class CommandWalk : MonoBehaviour {
                     EscapeUI.SetActive(true);
                     Time.timeScale = 0f;
                 }
-                if (tarObj.gameObject.tag.Equals("water") && Mathf.Floor(dist) <= 20f)
+                if (tarObj.gameObject.tag.Equals("water") && Mathf.Floor(dist) <= 20f && useHand == true)
                 {
 
                     if (haveWater == true)

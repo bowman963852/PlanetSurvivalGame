@@ -9,6 +9,7 @@ public class CallItems : MonoBehaviour {
     //public GameObject Forge, SpaceShip;
     public Text LogText, MineText, MetalText;
     public GameObject charObject;
+    public GameObject PickAxeIcon;
     public void CallToScene(GameObject item) {
         #region testing
         /*if (itemStr.Equals("cube"))
@@ -86,7 +87,9 @@ public class CallItems : MonoBehaviour {
         if (charObject.GetComponent<CommandWalk>().LogCount >= 50)
         {
             charObject.GetComponent<CommandWalk>().LogCount -= 50;
+                PickAxeIcon.SetActive(true);
             charObject.GetComponent<CommandWalk>().havePickaxe = true;
+            
             charObject.GetComponent<CommandWalk>().LogText.text
                 = "Log:" + charObject.GetComponent<CommandWalk>().LogCount;
         }
